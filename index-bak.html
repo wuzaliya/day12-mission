@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>狗寶歲數計算機</title>
+    <style>
+        body {
+            font-family: "微軟正黑體", sans-serif;
+            background: #f2f7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+            font-size: 16px;
+        }
+
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #357ac9;
+        }
+
+        #result {
+            margin-top: 25px;
+            font-size: 18px;
+            color: #444;
+        }
+
+        #result span {
+            color: #e67e22;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐶 狗寶歲數計算機</h1>
+
+        <label for="birthDate">請輸入狗狗的出生日期：</label>
+        <input type="date" id="birthDate" />
+
+        <button id="calcBtn">開始計算</button>
+
+        <div id="result">
+            <p><strong>狗狗年齡：</strong> <span id="dogAge"></span></p>
+            <p><strong>換算人類年齡：</strong> <span id="humanAge"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("calcBtn").addEventListener("click", function () {
+            const birthDate = document.getElementById("birthDate").value;
+
+            if (!birthDate) {
+                alert("請先輸入狗狗的出生日期！");
+                return;
+            }
+
+            // 取得當前日期
+            const today = new Date();
+            const birth = new Date(birthDate);
+
+            // 計算狗狗年齡 (以年為單位)
+            let dogAge = (today - birth) / (1000 * 60 * 60 * 24 * 365.25);
+            dogAge = dogAge.toFixed(2);
+
+            // 套用公式：人類年齡 = 16 * ln(狗狗年齡) + 31
+            let humanAge = 16 * Math.log(dogAge) + 31;
+            humanAge = humanAge.toFixed(2);
+
+            // 輸出結果
+            document.getElementById("dogAge").textContent = dogAge + " 歲";
+            document.getElementById("humanAge").textContent = humanAge + " 歲（人類歲數）";
+        });
+    </script>
+</body>
+</html>
